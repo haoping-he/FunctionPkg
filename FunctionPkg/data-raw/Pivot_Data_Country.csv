@@ -1,0 +1,51 @@
+Country,Code,FruitType,Consumption,Fruit
+Dominica,DMA,Bananas,41.67,354.78
+Dominica,DMA,Oranges,83.14,354.78
+Dominica,DMA,Apples,3.98,354.78
+Dominica,DMA,Grapes,1.55,354.78
+Dominica,DMA,Plantains,19.44,354.78
+Rwanda,RWA,Bananas,279.52,312.48
+Rwanda,RWA,Oranges,0.83,312.48
+Rwanda,RWA,Apples,0.12,312.48
+Rwanda,RWA,Grapes,0,312.48
+Rwanda,RWA,Plantains,NA,312.48
+Bahamas,BHS,Bananas,27.71,278.89
+Bahamas,BHS,Oranges,60.95,278.89
+Bahamas,BHS,Apples,39.9,278.89
+Bahamas,BHS,Grapes,6.61,278.89
+Bahamas,BHS,Plantains,1.61,278.89
+Dominican Republic,DOM,Bananas,63.73,261.09
+Dominican Republic,DOM,Oranges,13.33,261.09
+Dominican Republic,DOM,Apples,1.3,261.09
+Dominican Republic,DOM,Grapes,0.88,261.09
+Dominican Republic,DOM,Plantains,49.47,261.09
+Oman,OMN,Bananas,14.79,229.22
+Oman,OMN,Oranges,42.86,229.22
+Oman,OMN,Apples,8.76,229.22
+Oman,OMN,Grapes,5.76,229.22
+Oman,OMN,Plantains,1.91,229.22
+Sao Tome and Principe,STP,Bananas,191.75,222.3
+Sao Tome and Principe,STP,Oranges,1.83,222.3
+Sao Tome and Principe,STP,Apples,0.58,222.3
+Sao Tome and Principe,STP,Grapes,0.16,222.3
+Sao Tome and Principe,STP,Plantains,NA,222.3
+Bermuda,BMU,Bananas,14.77,215.2
+Bermuda,BMU,Oranges,45.85,215.2
+Bermuda,BMU,Apples,28.18,215.2
+Bermuda,BMU,Grapes,9.2,215.2
+Bermuda,BMU,Plantains,0.25,215.2
+Samoa,WSM,Bananas,79.7,201.25
+Samoa,WSM,Oranges,1.93,201.25
+Samoa,WSM,Apples,5.09,201.25
+Samoa,WSM,Grapes,0.21,201.25
+Samoa,WSM,Plantains,NA,201.25
+Luxembourg,LUX,Bananas,7.09,200.83
+Luxembourg,LUX,Oranges,104.76,200.83
+Luxembourg,LUX,Apples,26.14,200.83
+Luxembourg,LUX,Grapes,2.03,200.83
+Luxembourg,LUX,Plantains,1.34,200.83
+Ghana,GHA,Bananas,2.76,196.19
+Ghana,GHA,Oranges,22.94,196.19
+Ghana,GHA,Apples,1.57,196.19
+Ghana,GHA,Grapes,0.09,196.19
+Ghana,GHA,Plantains,127.68,196.19

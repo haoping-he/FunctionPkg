@@ -1,0 +1,49 @@
+
+
+
+```{r}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(mosaic)
+library(purrr)
+library(lubridate)
+```
+
+
+```{r}
+df_apply <- function(.data, execution, condition, .else, ...){
+  .data |>
+    lapply( function(x) if(condition(x)) execution(x) else .else(x)) %>%
+    as.data.frame()
+}
+
+#
+df_apply(iris, round, is.numeric, toupper)
+```
+
+```{r}
+n <- 7L
+TestData <- tibble(
+  double = rnorm(n, 100),
+  x = 123400/10^(1L:n),
+  integer = (1L:n)*(1L:n),
+  character = LETTERS[1L:n],
+  factor = factor(letters[1L:n]),
+  logical = rep(c(TRUE, FALSE), length.out = n)
+)
+```
+
+```{r}
+library(devtools)
+packageVersion('devtools')
+```
+
+
+```{r}
+create_package("FunctionPkg")
+```
+
+
+
+
+
