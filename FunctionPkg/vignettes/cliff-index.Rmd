@@ -21,7 +21,7 @@ Sherlock Holmes series is taken out from Netflix USA, but still appears in Netfl
 Source: https://www.kaggle.com/prasertk/netflix-subscription-price-in-different-countries 
 
 ```{r setup}
-FunctionPkg::df3
+df3 <- FunctionPkg::df3
 ```
 
 
