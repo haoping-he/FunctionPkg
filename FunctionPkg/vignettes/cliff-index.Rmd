@@ -14,14 +14,16 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(FunctionPkg)
-```
 
 ##### Background
 Sherlock Holmes series is taken out from Netflix USA, but still appears in Netflix from Indonesia. Because of this, I became curious on how many TV series/movies are on Netflix for different countries. In addition, I also realize that prices are different, depending on where you are. 
 
 Source: https://www.kaggle.com/prasertk/netflix-subscription-price-in-different-countries 
+
+```{r setup}
+library(FunctionPkg)
+data(df3)
+```
 
 ```{r, echo = FALSE}
 df <- utils::read.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_world_gdp_with_codes.csv')
@@ -57,6 +59,7 @@ fig <- fig %>% graphics::layout(
   )
 fig
 ```
+
 
 
 
