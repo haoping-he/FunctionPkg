@@ -50,6 +50,8 @@ knitr::opts_chunk$set(
 
 
 ```{r get-excel, message=FALSE}
+library(dplyr)
+library(FunctionPkg)
 Pivot_Data_Country <- FunctionPkg::Pivot_Data_Country
 Data <- FunctionPkg::FruitData
 ```
