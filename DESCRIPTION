@@ -16,6 +16,11 @@ Depends:
 LazyData: true
 Suggests: 
     rmarkdown,
+    crosstalk,
+    plotly,
+    purrr,
+    tidyr,
+    dplyr,
     knitr,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
