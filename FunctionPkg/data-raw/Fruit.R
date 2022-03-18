@@ -3,21 +3,20 @@
 #' @importFrom tidytuesdayR tt_load
 #' @importFrom dplyr group_by summarize mutate case_when arrange
 
+library(tidyverse)
+library(mosaic)
+library(purrr)
+library(lubridate)
 
-if (file.exists("Data.csv")) {
-
-  FruitData <- read_csv("Data.csv")
-
-} else {
 
   #Average fruit consumption per person, measured in kilograms per year.
-  fruit <- read.csv("/home/yh38/DATA303/Data303-Project/303Visualization/docs/plotly-projects/Haoping-He/fruit-consumption-per-capita.csv")
+fruit <- read.csv("/home/yh38/DATA303/Data303-Project/303Visualization/docs/plotly-projects/Haoping-He/fruit-consumption-per-capita.csv")
   #Average fruit consumption per person, differentiated by fruit types, measured in kilograms per year.
-  fruittype <-  read.csv("/home/yh38/DATA303/Data303-Project/303Visualization/docs/plotly-projects/Haoping-He/fruit-consumption-by-fruit-type.csv")
+fruittype <-  read.csv("/home/yh38/DATA303/Data303-Project/303Visualization/docs/plotly-projects/Haoping-He/fruit-consumption-by-fruit-type.csv")
 
-  Fruit<- fruit%>%filter(Year == 2013) %>% select(-Year)
+Fruit<- fruit%>%filter(Year == 2013) %>% select(-Year)
 
-  Fruit_Type<- fruittype%>%filter(Year == 2013) %>% select(-Year, -Code) %>%
+Fruit_Type<- fruittype%>%filter(Year == 2013) %>% select(-Year, -Code) %>%
     rename(Bananas = Food.Supply...Crops.Primary.Equivalent...Bananas...2615...Food.supply.quantity..kg.capita.yr....645...kg,
            Dates = Food.Supply...Crops.Primary.Equivalent...Dates...2619...Food.supply.quantity..kg.capita.yr....645...kg,
            Citrus = Food.Supply...Crops.Primary.Equivalent...Citrus..Other...2614...Food.supply.quantity..kg.capita.yr....645...kg,
@@ -30,11 +29,11 @@ if (file.exists("Data.csv")) {
            Plantains = Food.Supply...Crops.Primary.Equivalent...Plantains...2616...Food.supply.quantity..kg.capita.yr....645...kg,
            Other = Food.Supply...Crops.Primary.Equivalent...Fruits..Other...2625...Food.supply.quantity..kg.capita.yr....645...kg)
 
-  FruitData <- Fruit %>% left_join(Fruit_Type, by = 'Entity') %>%
+FruitData <- Fruit %>% left_join(Fruit_Type, by = 'Entity') %>%
     rename(Country = Entity,
            Fruit = Fruits...Excluding.Wine...Food.supply.quantity..kg.capita.yr...FAO..2020.)
 
-  Pivot_Data <- FruitData%>%
+Pivot_Data <- FruitData%>%
     select("Country", 'Code', "Bananas" , "Oranges", "Apples" , "Grapes", "Plantains")%>%
     pivot_longer(
       cols = c("Bananas" , "Oranges", "Apples" , "Grapes", "Plantains"),
@@ -42,23 +41,16 @@ if (file.exists("Data.csv")) {
       values_to = 'Consumption'
     )
 
-  Countries <- Data %>% arrange(desc(Fruit)) %>% head(10)%>% select(Country)
+Countries <- FruitData %>% arrange(desc(Fruit)) %>% head(10)%>% select(Country)
 
 
-  Pivot_Data_Country <- Pivot_Data %>%
-    left_join(Data %>% select(Country, Fruit), on = Country) %>%
+Pivot_Data_Country <- Pivot_Data %>%
+    left_join(FruitData %>% select(Country, Fruit), on = Country) %>%
     filter(Country %in% Countries$Country)%>% arrange(desc(Fruit))
 
 
 
-  write_csv(FruitData, "/home/yh38/DATA303/Function_Creation/FunctionPkg/data-raw/FruitData.csv")
-  write_csv(Pivot_Data_Country, "/home/yh38/DATA303/Function_Creation/FunctionPkg/data-raw/Pivot_Data_Country.csv")
-
-}
-
-FruitData <- FruitData
-Pivot_Data_Country <- Pivot_Data_Country
-
-
+usethis::use_data(FruitData)
+usethis::use_data(Pivot_Data_Country)
 
 

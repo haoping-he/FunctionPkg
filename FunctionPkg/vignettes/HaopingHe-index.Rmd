@@ -1,0 +1,311 @@
+---
+title: "HaopingHe-index"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{HaopingHe-index}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(FunctionPkg)
+library(crosstalk)
+library(plotly)
+```
+
+
+
+
+```{r, echo=FALSE}
+
+#Average fruit consumption per person, measured in kilograms per year.
+fruit <- read.csv("/home/yh38/DATA303/Data303-Project/303Visualization/docs/plotly-projects/Haoping-He/fruit-consumption-per-capita.csv")
+
+#Average fruit consumption per person, differentiated by fruit types, measured in kilograms per year.
+fruittype <-  read.csv("/home/yh38/DATA303/Data303-Project/303Visualization/docs/plotly-projects/Haoping-He/fruit-consumption-by-fruit-type.csv")
+
+  
+Fruit<- fruit%>%filter(Year == 2013) %>% select(-Year)
+Fruit_Type<- fruittype%>%filter(Year == 2013) %>% select(-Year, -Code) %>%
+  rename(Bananas = Food.Supply...Crops.Primary.Equivalent...Bananas...2615...Food.supply.quantity..kg.capita.yr....645...kg, 
+         Dates = Food.Supply...Crops.Primary.Equivalent...Dates...2619...Food.supply.quantity..kg.capita.yr....645...kg,
+         Citrus = Food.Supply...Crops.Primary.Equivalent...Citrus..Other...2614...Food.supply.quantity..kg.capita.yr....645...kg,
+         Oranges = Food.Supply...Crops.Primary.Equivalent...Oranges..Mandarines...2611...Food.supply.quantity..kg.capita.yr....645...kg,
+         Apples = Food.Supply...Crops.Primary.Equivalent...Apples.and.products...2617...Food.supply.quantity..kg.capita.yr....645...kg,
+         Lemons = Food.Supply...Crops.Primary.Equivalent...Lemons..Limes.and.products...2612...Food.supply.quantity..kg.capita.yr....645...kg,
+         Grapes = Food.Supply...Crops.Primary.Equivalent...Grapes.and.products..excl.wine....2620...Food.supply.quantity..kg.capita.yr....645...kg,
+         Grapefruit = Food.Supply...Crops.Primary.Equivalent...Grapefruit.and.products...2613...Food.supply.quantity..kg.capita.yr....645...kg,
+         Pineapples = Food.Supply...Crops.Primary.Equivalent...Pineapples.and.products...2618...Food.supply.quantity..kg.capita.yr....645...kg,
+         Plantains = Food.Supply...Crops.Primary.Equivalent...Plantains...2616...Food.supply.quantity..kg.capita.yr....645...kg,
+         Other = Food.Supply...Crops.Primary.Equivalent...Fruits..Other...2625...Food.supply.quantity..kg.capita.yr....645...kg)
+
+Data <- Fruit %>% left_join(Fruit_Type, by = 'Entity') %>%
+  rename(Country = Entity, 
+         Fruit = Fruits...Excluding.Wine...Food.supply.quantity..kg.capita.yr...FAO..2020.)
+  
+Data[is.na(Data)] = 0
+
+
+```
+
+
+
+
+\
+\
+\
+
+# Which types of fruit are more popular? \
+Take a guess which ones were the most popular and most purchased fruit in the world within a list that contains banana, dates, citrus, organes, apples, lemons, grapes, grapefruit, pineapple, and plantains. \ 
+
+```{r, echo=FALSE}
+
+sumdata=data.frame(value=apply(Data %>% select(-Country, -Code, -Fruit, -Other) ,2,sum))
+sumdata$key=rownames(sumdata)
+ggplot(data=sumdata, aes(x=reorder(key,-value), y=value)) +
+geom_bar(stat="identity", fill = 'light blue') + 
+  theme(axis.text.x = element_text(angle = 60, vjust = 0.5, hjust=1))+
+  labs(title = "What are the most popular fruit?",
+      x = " ", y = "Kg/Year")
+```
+\ 
+\ 
+\ 
+Back in 2013, the top three selling fruits include: oranges, bananas, and apples.\
+However, according to the research, in 2019, 3 most popular fruit are tomatoes, bananas, and watermelon. \
+
+
+\
+\
+\
+
+
+# Which countries consume the most of top 5 popular fruit? \
+- Among all the countries, Luxembourg consumes most Oranges	in the world\
+- Rwanda consumes most Bananas		\
+- Austria	consumes most Apples		\
+- Ghana	consumes most Plantains		\
+- Albania	consumes most Grapes \
+
+```{r echo=FALSE, warning=FALSE}
+Top_five_fruit <- Data %>% 
+  filter(Oranges == max(Data$Oranges))%>%
+  select(Country, Oranges)%>%
+  rename(Values = Oranges)%>%
+  add_column(Fruit = 'Oranges') %>%
+rbind(
+  Data %>% 
+  filter( Bananas == max(Data$Bananas))%>%
+  select(Country, Bananas)%>%
+      rename(Values = Bananas)%>%
+  add_column(Fruit = 'Bananas') 
+)%>%
+rbind(
+  Data %>% 
+  filter( Apples == max(Data$Apples))%>%
+  select(Country, Apples)%>%
+      rename(Values = Apples)%>%
+  add_column(Fruit = 'Apples') 
+)%>%
+rbind(
+  Data %>% 
+  filter( Plantains == max(Data$Plantains))%>%
+  select(Country, Plantains)%>%
+      rename(Values = Plantains)%>%
+  add_column(Fruit = 'Plantains') 
+)%>%
+rbind(
+  Data %>% 
+  filter( Grapes == max(Data$Grapes))%>%
+  select(Country, Grapes)%>%
+      rename(Values = Grapes)%>%
+  add_column(Fruit = 'Grapes') 
+)
+
+```
+
+\
+\
+
+
+```{r echo=FALSE, warning=FALSE}
+Top_10_Countries <- Data %>% 
+  arrange(desc(Fruit))%>%
+  head(15)
+
+Pivot_Data <- Data%>%
+  select("Country", 'Code', "Bananas" , "Oranges", "Apples" , "Grapes", "Plantains")%>%
+  pivot_longer(
+    cols = c("Bananas" , "Oranges", "Apples" , "Grapes", "Plantains"),
+    names_to = 'FruitType',
+    values_to = 'Consumption'
+  ) 
+
+Countries <- Data %>% arrange(desc(Fruit)) %>% head(10)%>% select(Country)
+
+
+Pivot_Data_Country <-Pivot_Data %>% 
+  left_join(Data %>% select(Country, Fruit), on = Country) %>% 
+  filter(Country %in% Countries$Country)%>% arrange(desc(Fruit))
+```
+\
+\
+
+
+# Top 10 countries that consumed most fruits per capita
+```{r, echo=FALSE, warning=FALSE}
+
+Top_10_Countries <- Data %>% 
+  arrange(desc(Fruit))%>%
+  head(15)
+```
+
+
+\
+\
+\
+
+# Fruit consumption by fruit type (2013)
+
+```{r, echo=FALSE, warning=FALSE}
+
+Data$hover <- with(Data, paste( '<b>' , Country , '</b>' , '<br>', 
+                                           "Bananas", '<b>' , Bananas,'</b>', "kg/year", "<br>", 
+                                           "Dates", '<b>' , Dates,'</b>', "kg/year", "<br>",
+                                            "Citrus", '<b>' , Citrus,'</b>', "kg/year", "<br>",
+                                            "Oranges", '<b>' , Oranges,'</b>', "kg/year", "<br>",
+                                           "Apples", '<b>' , Apples,'</b>', "kg/year", "<br>",
+                                        "Lemons", '<b>' , Lemons,'</b>', "kg/year", "<br>",
+                                        "Grapes", '<b>' , Grapes,'</b>', "kg/year", "<br>",
+                                        "Grapefruit", '<b>' , Grapefruit,'</b>', "kg/year", "<br>",
+                                "Pineapples", '<b>' , Pineapples,'</b>', "kg/year", "<br>",
+                                "Plantains", '<b>' , Plantains,'</b>', "kg/year", "<br>",
+                                "Other", '<b>' , Other,'</b>', "kg/year", "<br>"))
+    
+```
+
+```{r, echo=FALSE, warning=FALSE}
+  
+
+D1 <- Data%>%
+  select(-c("Code", "hover"))%>%
+  pivot_longer(
+    cols = (-Country),
+    names_to = 'FruitType',
+    values_to = 'value'
+  )
+
+D2 <- D1 %>% 
+  left_join(Data %>% select(Country, Code, Fruit), on = Country)
+
+
+countryKey <- plotly::highlight_key(Data, ~Country)
+
+base <- plot_ly(countryKey, color = I("black")) %>% 
+  group_by(Country)
+
+plot11 <- D2 %>%
+      highlight_key(~Country) %>%
+      plot_ly(type='choropleth', 
+                      locations=D2$Code, 
+                      z=D2$Fruit,  
+                      #text=Data$hover, 
+                      colorscale="Viridis") %>% 
+  layout(title = 'Fruit Consumption')  %>% 
+    highlight("plotly_click", persistent = FALSE, dynamic = TRUE)
+
+plot22 <- D2 %>% 
+    plot_ly(x = ~Fruit, y = ~value)  %>%
+    add_bars() %>%
+  #layout(barmode = "overlay") %>%
+  highlight("plotly_click")
+
+```
+
+
+# Check Fruit Consumption in Each Country
+```{r, echo=FALSE, warning=FALSE}
+library(crosstalk)
+
+countryKey <- highlight_key(Pivot_Data_Country, ~Country)
+
+
+line <- countryKey  %>% 
+  plot_ly( x = ~ reorder(Country, -Fruit), y = ~Fruit, 
+name = 'Fruit total', type = 'scatter', mode = 'lines+markers',
+  text = paste("<br>Country: ", Pivot_Data_Country$Country,"<br>",
+                 Pivot_Data_Country$Fruit, 'kg/year'),
+  hoverinfo = 'text') %>% 
+  layout(title= "Which Country Eats the Most Fruits Per Capita?")%>% 
+  highlight("plotly_click")
+
+
+bar <- countryKey %>% 
+  plot_ly()  %>%
+  add_bars(x = ~FruitType, y = ~Consumption, color = 'green') %>% 
+  layout(barmode = "overlay")
+
+crosstalk::bscols(line,bar) 
+
+```
+
+
+```{r, echo=FALSE, warning=FALSE}
+# library(crosstalk)
+# countryKey <- highlight_key(Pivot_Data, ~Country)
+# 
+# map <- countryKey %>%
+#   plot_ly()%>%
+#   group_by(Country, Code) %>%
+#   summarise(Consumption = sum(Consumption, na.rm = TRUE)) %>%
+#   add_choropleth(
+#     locations=~Code, 
+#     z=~Consumption,  
+#     #text=Data$hover, 
+#     colorscale="Viridis") %>% 
+#   layout(title = 'Fruit Consumption')  %>% 
+#   highlight("plotly_click", persistent = FALSE, dynamic = TRUE)
+# 
+# barplot <- countryKey %>% 
+#   plot_ly(x = ~FruitType, y = ~Consumption)  %>%
+#   add_bars() 
+#   #layout(barmode = "overlay")
+# 
+# dotplot <- countryKey %>%
+#   plot_ly()%>%
+#   group_by(Country, Code) %>%
+#   summarise(Consumption = sum(Consumption, na.rm = TRUE)) %>%
+#   add_markers(
+#     x = ~Country, y = ~Consumption
+#   )%>%
+#  highlight("plotly_click")
+# 
+# crosstalk::bscols(dotplot,barplot) 
+
+
+```
+
+
+
+
+
+```{r echo=FALSE}
+   
+       
+
+fig3 <-  plot_ly(Data, type='choropleth', 
+                      locations=Data$Code, 
+                      z=Data$Fruit,  
+                      text=Data$hover, 
+                      colorscale="Viridis") %>% 
+  layout(title = 'Fruit Consumption by fruit type/country(2013)')
+
+fig3
+```
