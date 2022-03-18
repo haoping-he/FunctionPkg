@@ -21,42 +21,23 @@ Sherlock Holmes series is taken out from Netflix USA, but still appears in Netfl
 Source: https://www.kaggle.com/prasertk/netflix-subscription-price-in-different-countries 
 
 ```{r setup}
-library(FunctionPkg)
-data(df3)
+FunctionPkg::df3
 ```
 
-```{r, echo = FALSE}
-df <- utils::read.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_world_gdp_with_codes.csv')
-colnames(df) <- c('Country')
-df2 <- utils::read.csv('netflix_price.csv')
-
-df3 <- merge(df, df2)
-
-# Rename columns
-names(df3)[3] <- 'Code'
-names(df3)[7] <- 'Cost_basic'
-names(df3)[8] <- 'Cost_standard'
-names(df3)[9] <- 'Cost_premium'
-df3 <- df3[ -c(2) ]
-
-# Add column cost per title (Basic plan)
-df3 <- df3 %>%
-  dplyr::select(Country,Code,Total.Library.Size,No..of.TV.Shows,No..of.Movies,Cost_basic,Cost_standard,Cost_premium) %>%
-  dplyr::mutate(Cost_per_title_basic = Cost_basic / Total.Library.Size)
-```
 
 
 ```{r, echo = FALSE}
 fig <- plotly::plot_ly(df3, type='choropleth', locations=df3$Code, z=df3$Cost_basic, text=df3$Country, colorscale="Blues")
 
 # light grey boundaries
-l <- list(color = toRGB("grey"), width = 0.5)
+l <- list(color = "grey", width = 0.5)
 
 
 fig <- fig %>% plotly::colorbar(title = 'Cost (US$)', tickprefix = '$')
-fig <- fig %>% graphics::layout(
-    title = 'Netflix Monthly Basic Subscription<br> Source: <a href="https://www.kaggle.com/prasertk/netflix-subscription-price-in-different-countries">Kaggle</a>'
-  )
+# fig <- fig %>% graphics::layout(
+#     title = 'Netflix Monthly Basic Subscription<br>'
+#   )
+#Source: <a href="https://www.kaggle.com/prasertk/netflix-subscription-price-in# -different-countries">Kaggle</a>'
 fig
 ```
 
@@ -65,32 +46,32 @@ fig
 
 ```{r, echo = FALSE}
 # scatter plot comparing price and library size
-fig2 <- plot_ly(data = df3, x = ~Cost_basic, y = ~Total.Library.Size,
-               # Hover text:
-               text = ~paste("Price: $", Cost_basic, '<br>Library Size:', Total.Library.Size, "<br>Country:", Country),
-               marker = list(size = 10,
-                             color = 'rgba(255, 182, 193, .9)',
-                             line = list(color = 'rgba(152, 0, 0, .8)',
-                                         width = 2)))
-
-fig2 <- fig2 %>% layout(title = 'Total Library Size vs Cost',
-         yaxis = list(zeroline = FALSE, title = 'Total Library Size (Movie + TV Show)'),
-         xaxis = list(zeroline = FALSE, title = 'Monthly Subscription Cost $'))
-
-fig2
+# fig2 <- plotly::plot_ly(data = df3, x = ~Cost_basic, y = ~Total.Library.Size,
+#                # Hover text:
+#                text = ~paste("Price: $", Cost_basic, '<br>Library Size:', Total.Library.Size, "<br>Country:", Country),
+#                marker = list(size = 10,
+#                              color = 'rgba(255, 182, 193, .9)',
+#                              line = list(color = 'rgba(152, 0, 0, .8)',
+#                                          width = 2)))
+# 
+# fig2 <- fig2 %>% plotly::layout(title = 'Total Library Size vs Cost',
+#          yaxis = list(zeroline = FALSE, title = 'Total Library Size (Movie + TV Show)'),
+#          xaxis = list(zeroline = FALSE, title = 'Monthly Subscription Cost $'))
+# 
+# fig2
 ```
 
 
-```{r, echo = FALSE, fig.width = 13, fig.height = 7}
-bar_fig <- plot_ly(
-  data = df3,
-  y = ~Cost_per_title_basic,
-  x = ~Country,
-  type = 'bar'
-) %>% 
-  layout(title = 'Cost per title for the Basic Plan',
-         xaxis = list(categoryorder = "total descending"),
-         yaxis = list(title = 'Cost in USD'), barmode = 'group'
-         )
-bar_fig
-```
+# ```{r, echo = FALSE, fig.width = 13, fig.height = 7}
+# bar_fig <- plotly::plot_ly(
+#   data = df3,
+#   y = ~Cost_per_title_basic,
+#   x = ~Country,
+#   type = 'bar'
+# ) %>% 
+#   plotly::layout(title = "Cost per title for the Basic Plan",
+#                  xaxis = list(categoryorder = "total descending"),
+#                  yaxis = list(title = 'Cost in USD'), barmode = 'group'
+#   )
+# bar_fig
+# ```
