@@ -9,7 +9,7 @@
 #'   *{Consumption}{Fruit consumption}
 #'   *{Fruit}{total fruit consumption by that country}
 #' @examples
-#' Bananasmax <- Pivot_Data_Country %>%  dplyr::filter(FruitType == "Bananas") %>% max(Consumption)
 #' @source \url{https://ourworldindata.org/grapher/fruit-consumption-per-capita}
 #' 
-#' "Pivot_Data_Country"
+
+"Pivot_Data_Country"

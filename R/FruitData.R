@@ -22,4 +22,5 @@
 #' FruitMax <- max(FruitData$Fruit)
 #' @source \url{https://ourworldindata.org/grapher/fruit-consumption-by-fruit-type?country=~OWID_WRL}
 #' 
-#' "FruitData"
+
+"FruitData"

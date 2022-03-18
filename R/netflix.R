@@ -17,4 +17,5 @@
 #' @example mean_basic_plan <- mean(df3$Cost_basic)
 #' 
 #' @source \url{https://www.kaggle.com/prasertk/netflix-subscription-price-in-different-countries}
-#' "df3"
+
+"df3"
