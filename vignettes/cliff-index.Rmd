@@ -22,6 +22,7 @@ Source: https://www.kaggle.com/prasertk/netflix-subscription-price-in-different-
 
 ```{r setup}
 df3 <- FunctionPkg::df3
+library(dplyr)
 ```
 
 
