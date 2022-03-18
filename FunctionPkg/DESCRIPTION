@@ -1,9 +1,9 @@
 Package: FunctionPkg
-Title: A Package that Includes 2 Functions
+Title: A Package for DS303 class
 Version: 0.0.0.9000
 Authors@R: 
-    c(person("Haoping", "He", , "yh38@calvin.edu"),
-    person("Cliff", "Anderson", "ca42@calvin.edu"))
+    c(person("Haoping", "He", ,"yh38@calvin.edu", role = c("aut", "cre")),
+    person("Cliff", "Anderson", , "ca42@calvin.edu", role = "ctb"))
 Description: A function that takes a dataframe and applies a function to data where a condition is true, and another function to the other data. 
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
@@ -11,6 +11,7 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Depends: 
+    dplyr,
     R (>= 2.10)
 LazyData: true
 Suggests: 
