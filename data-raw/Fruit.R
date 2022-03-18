@@ -53,7 +53,7 @@ Pivot_Data_Country <- Pivot_Data %>%
 usethis::use_data(FruitData)
 usethis::use_data(Pivot_Data_Country)
 
-usethis::use_data(Data, FruitData, overwrite = TRUE)
+usethis::use_data(FruitData, FruitData, overwrite = TRUE)
 usethis::use_data(Pivot_Data_Country, Pivot_Data_Country, overwrite = TRUE)
 
   

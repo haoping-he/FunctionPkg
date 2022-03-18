@@ -7,7 +7,7 @@
 #'
 #' @return a data frame with specific change made to it.
 #' @examples
-
+#' @export 
 #' n <- 5L
 #' TestData <- dplyr::tibble( double = c(5.002, 3.221, 4.008, 5.112, 4.779),
 #'                 integer   = c(0, 10, 20, 30, 40),
