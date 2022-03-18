@@ -1,4 +1,10 @@
-#' "Transform" a data frame
+#' df_apply
+#' 
+#' "Transform" a data frame by applying a function 
+#' to qualifying columns in a data frame, and using
+#' a different function to the other columns
+#' 
+#' 
 #' @.data – a data frame
 #' @.f – a function
 #' @.condition – a function – the default should TRUE for numeric columns and false for other columns
