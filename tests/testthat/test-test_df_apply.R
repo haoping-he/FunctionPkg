@@ -32,7 +32,7 @@ test_that(
         low =  letters[1L:n] )
     )
     expect_equal(
-      TestData |>  df_apply(toupper, is_character),
+      TestData |>  df_apply(toupper, purrr::is_character),
       TestData |> dplyr::mutate(
         double    = c(5.002, 3.221, 4.008, 5.112, 4.779),
         integer   = c(0, 10, 20, 30, 40),

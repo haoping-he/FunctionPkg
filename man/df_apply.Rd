@@ -29,8 +29,7 @@ TestData <- dplyr::tibble( double = c(5.002, 3.221, 4.008, 5.112, 4.779),
                 integer   = c(0, 10, 20, 30, 40),
                 cap = LETTERS[1L:n],
                 low = letters[1L:n])
-  )
 df_apply(test_data, round, toupper, digits = 1)
-TestData |>  df_apply(toupper, is_character)
+TestData |>  df_apply(toupper, purrr::is_character)
 TestData |> df_apply(round, is.numeric, toupper, digits = 2),
 }
