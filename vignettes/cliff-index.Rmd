@@ -62,7 +62,7 @@ fig
 # fig2
 ```
 
-
+```{r, echo = FALSE}
 # ```{r, echo = FALSE, fig.width = 13, fig.height = 7}
 # bar_fig <- plotly::plot_ly(
 #   data = df3,
@@ -76,3 +76,4 @@ fig
 #   )
 # bar_fig
 # ```
+```
