@@ -21,4 +21,7 @@ Pivot_Data_Country
 \description{
 This data set contains countries and their fruit consumptions
 }
+\examples{
+ AvgComsumption <- mean(Pivot_Data_Country$Consumption)
+}
 \keyword{datasets}

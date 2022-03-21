@@ -14,7 +14,7 @@
 #'   *{Cost_per_title_basic}{Cost in USD, # of titles / cost of basic subscription plan}
 #'   ...
 #'   
-#' @example mean_basic_plan <- mean(df3$Cost_basic)
+#' @examples mean_basic_plan <- mean(df3$Cost_basic)
 #' 
 #' @source \url{https://www.kaggle.com/prasertk/netflix-subscription-price-in-different-countries}
 

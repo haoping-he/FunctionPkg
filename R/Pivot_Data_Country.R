@@ -9,6 +9,7 @@
 #'   *{Consumption}{Fruit consumption}
 #'   *{Fruit}{total fruit consumption by that country}
 #' @examples
+#'  AvgComsumption <- mean(Pivot_Data_Country$Consumption)
 #' @source \url{https://ourworldindata.org/grapher/fruit-consumption-per-capita}
 #' 
 

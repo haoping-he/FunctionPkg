@@ -49,7 +49,17 @@ knitr::opts_chunk$set(
 <!-- ``` -->
 
 
-```{r get-excel, message=FALSE}
+## Dataset
+This dataset contains information about average fruit consumption per person as well as fruit consumption by fruit types in each country in the world. (From OurWroldInData) 
+\
+\
+* Fruit consumption by fruit type: Average fruit consumption per person, differentiated by fruit types, measured in kilograms per year.
+[Click Here](https://ourworldindata.org/grapher/fruit-consumption-by-fruit-type?country=~OWID_WRL)\
+* Fruit consumption per capita: Average fruit consumption per person, measured in kilograms per year.
+[Click Here](https://ourworldindata.org/grapher/fruit-consumption-per-capita) \
+
+
+```{r get-excel, echo=FALSE, warning=FALSE}
 library(dplyr)
 library(FunctionPkg)
 Pivot_Data_Country <- FunctionPkg::Pivot_Data_Country
@@ -81,7 +91,7 @@ Pivot_Data_Country <-Pivot_Data %>%
 \
 
 
-# Top 10 countries that consumed most fruits per capita
+
 ```{r, echo=FALSE, warning=FALSE}
 
 Top_10_Countries <- Data %>% 
@@ -93,8 +103,6 @@ Top_10_Countries <- Data %>%
 \
 \
 \
-
-# Fruit consumption by fruit type (2013)
 
 ```{r, echo=FALSE, warning=FALSE}
 
@@ -152,7 +160,7 @@ plot22 <- D2 %>%
 ```
 
 
-# Check Fruit Consumption in Each Country
+# Top 10 Countries with Most Fruit Consumption (Interactive Graphs)
 ```{r, echo=FALSE, warning=FALSE}
 
 
@@ -215,10 +223,13 @@ crosstalk::bscols(line,bar)
 ```
 
 
+\
+\
 
 
 
-```{r echo=FALSE}
+# Fruit Consumption by Country 
+```{r echo=FALSE, warning=FALSE}
    
        
 

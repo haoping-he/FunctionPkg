@@ -28,4 +28,8 @@ df3
 \description{
 A dataset containing the prices of Netflix subscription plans (basic, standard, premium) along with number of TV shows and movies.
 }
+\examples{
+mean_basic_plan <- mean(df3$Cost_basic)
+
+}
 \keyword{datasets}
